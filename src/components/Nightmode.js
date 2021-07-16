@@ -4,7 +4,7 @@ import StyledNightmode from "./styles/StyledNightmode";
 const NightMode = ({nightModeCallback, nightMode}) => (
     <StyledNightmode>
         <span>
-            <h1>NightMode</h1>
+            <p>NightMode</p>
             <label className="switch">
                 <input type="checkbox" checked={nightMode} onChange={nightModeCallback}/>
                 <span className='slider round' />
