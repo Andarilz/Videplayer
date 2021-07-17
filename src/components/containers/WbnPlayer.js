@@ -31,7 +31,7 @@ const WbnPlayer = props => {
 
     useEffect(() => {
         const res = async () => {
-            await axios.get('https://run.mocky.io/v3/970d9ff7-34d4-4fe6-b1ca-1e2b7e6582ec')
+            await axios.get('https://run.mocky.io/v3/9df841fe-3983-4966-b73d-dbf453d0877d')
                 .then((res) => {
                     return res.data
                 })
