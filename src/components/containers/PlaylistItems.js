@@ -9,7 +9,7 @@ const PlaylistItems = ({videos, active}) =>  (
             <PlaylistItem
             key={video.id}
             video={video}
-            active={video.id === active.id}
+            active={active ? video.id === active.id : null}
             played={video.played}
             />
         ))}

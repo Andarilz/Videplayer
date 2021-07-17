@@ -15,7 +15,7 @@ const Video = ({active, autoplay, endCallBack, progressCallback}) => (
             }}
             controls={true}
             playing={autoplay}
-            url={active.video}
+            url={active ? active.video : null}
             onEnded={endCallBack}
             onProgress={progressCallback}
              />

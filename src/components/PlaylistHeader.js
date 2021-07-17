@@ -4,9 +4,9 @@ import StyledJourney from "./styles/StyledJourney";
 
 const playlistHeader = ({active, total}) => (
     <StyledPlaylistHeader>
-        <p>{active.title}</p>
+        <p>{active ? active.title : null}</p>
         <StyledJourney>
-            {active.num} / {total}
+            {active ? active.num : null} / {total}
         </StyledJourney>
     </StyledPlaylistHeader>
 )

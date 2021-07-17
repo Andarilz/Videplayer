@@ -25,28 +25,99 @@ const themeLight = {
     color: '#353535'
 }
 
-const WbnPlayer = props => {
-
-    const [state, setState] = useState({})
-
-    useEffect(() => {
-        const res = async () => {
-            await axios.get('https://run.mocky.io/v3/9df841fe-3983-4966-b73d-dbf453d0877d')
-                .then((res) => {
-                    return res.data
-                })
-                .then(videos => {
-                    setState({
+const WbnPlayer = ({match, history, location}) => {
+    // const [state, setState] = useState({})
+    const videos = JSON.parse(document.querySelector('[name="videos"]').value)
+    const [state, setState] = useState({
                             videos: videos.playlist,
                             activeVideo: videos.playlist[0],
                             nightMode: true,
                             playlistId: videos.playlistId,
                             autoplay: false
-                    })
-                })
+    })
+
+        // const res = async () => {
+        //     await axios.get('https://run.mocky.io/v3/9df841fe-3983-4966-b73d-dbf453d0877d')
+        //         .then((res) => {
+        //             return res.data
+        //         })
+        //         .then(videos => {
+        //             setState({
+        //                 videos: videos.playlist,
+        //                 activeVideo: videos.playlist[0],
+        //                 nightMode: true,
+        //                 playlistId: videos.playlistId,
+        //                 autoplay: false
+        //             })
+        //         })
+        // }
+        //
+        // res()
+
+
+
+    // useEffect(() => {
+    //     const res = async () => {
+    //         await axios.get('https://run.mocky.io/v3/9df841fe-3983-4966-b73d-dbf453d0877d')
+    //             .then((res) => {
+    //                 return res.data
+    //             })
+    //             .then(videos => {
+    //                 setState({
+    //                     videos: videos.playlist,
+    //                     activeVideo: videos.playlist[0],
+    //                     nightMode: true,
+    //                     playlistId: videos.playlistId,
+    //                     autoplay: false
+    //                 })
+    //             })
+    //     }
+    //
+    //     res()
+    //
+    // }, [])
+
+    useEffect(() => {
+
+        const videoId = match.params.activeVideo
+
+        if(videoId && state.videos){
+            const newActiveVideo = state.videos.findIndex(video => video.id === videoId)
+
+            setState(prev => ({
+                ...prev,
+                activeVideo: prev.videos[newActiveVideo],
+                autoplay: location.autoplay
+            }))
+        } else {
+            history.push({
+                pathname: `/${state.activeVideo ? state.activeVideo.id : null}`,
+                autoplay: false
+            })
         }
-        res()
-    }, [])
+
+    }, [state.videos, state.activeVideo ? state.activeVideo.id : null, match.params.activeVideo, location.autoplay, history])
+
+    // if(state.videos){
+    //     useEffect(() => {
+    //         const videoId = match.params.activeVideo
+    //         if(videoId){
+    //             const newActiveVideo = state.videos.findIndex(video => video.id === videoId)
+    //
+    //             setState(prev => ({
+    //                 ...prev,
+    //                 activeVideo: prev.videos[newActiveVideo],
+    //                 autoplay: location.autoplay
+    //             }))
+    //         } else {
+    //             history.push({
+    //                 pathname: `/${state.activeVideo.id}`,
+    //                 autoplay: false
+    //             })
+    //         }
+    //
+    //     }, [state.videos, state.activeVideo.id, match.params.activeVideo, location.autoplay, history])
+    // }
 
     const nightModeCallback = () => {
 
