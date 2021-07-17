@@ -81,7 +81,7 @@ const WbnPlayer = ({match, history, location}) => {
 
         const videoId = match.params.activeVideo
 
-        if(videoId && state.videos){
+        if(videoId){
             const newActiveVideo = state.videos.findIndex(video => video.id === videoId)
 
             setState(prev => ({
@@ -91,7 +91,7 @@ const WbnPlayer = ({match, history, location}) => {
             }))
         } else {
             history.push({
-                pathname: `/${state.activeVideo ? state.activeVideo.id : null}`,
+                pathname: `/${state.activeVideo}`,
                 autoplay: false
             })
         }
