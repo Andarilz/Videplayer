@@ -3,6 +3,7 @@ import Video from '../Video'
 import Playlist from '../containers/Playlist'
 import {ThemeProvider} from "styled-components";
 import StyledWbnPlayer from "../styles/StyledWbnPlayer";
+import axios from 'axios'
 
 const theme = {
     bgcolor: '#353535',
@@ -26,19 +27,26 @@ const themeLight = {
 
 const WbnPlayer = props => {
 
-    const videos = JSON.parse(document.querySelector(`[name="videos"]`).value)
-
-    const [state, setState] = useState({
-        videos: videos.playlist,
-        activeVideo: videos.playlist[0],
-        nightMode: true,
-        playlistId: videos.playlistId,
-        autoplay: false
-    })
+    const [state, setState] = useState({})
 
     useEffect(() => {
-        console.log(state)
-    })
+        const res = async () => {
+            await axios.get('https://run.mocky.io/v3/970d9ff7-34d4-4fe6-b1ca-1e2b7e6582ec')
+                .then((res) => {
+                    return res.data
+                })
+                .then(videos => {
+                    setState({
+                            videos: videos.playlist,
+                            activeVideo: videos.playlist[0],
+                            nightMode: true,
+                            playlistId: videos.playlistId,
+                            autoplay: false
+                    })
+                })
+        }
+        res()
+    }, [])
 
     const nightModeCallback = () => {
 
